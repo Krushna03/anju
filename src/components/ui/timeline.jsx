@@ -31,25 +31,25 @@ export const Timeline = ({
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-8 py-20 px-4 md:px-8 lg:px-10">
         {/* Left Text Section */}
         <div className="w-full md:w-1/2">
-          <h2 className="text-xl font-bold md:text-5xl mb-4 text-black dark:text-white max-w-2xl">
+          <h2 className="text-2xl text-center sm:text-start font-bold md:text-5xl mb-4 text-black dark:text-white max-w-2xl">
             LAUGH WITH ANJU
           </h2>
-          <p className="text-neutral-700 dark:text-neutral-300 text-base md:text-lg max-w-md">
+          <p className="text-neutral-700 text-center sm:text-start dark:text-neutral-300 text-base md:text-lg max-w-md">
             Are you looking for the perfect workout for you? Discover our full range of in-home and on-site health and wellness services.
           </p>
         </div>
 
         {/* Right Image Section */}
         <div className="w-full md:w-1/2 flex justify-center">
-          <img src="timeline-banner.jpg" alt="Timeline Banner" className="w-full max-w-lg rounded-lg object-cover" />
+          <img src="laugh.jpg" alt="Timeline Banner" className="w-full max-w-lg rounded-lg object-cover" />
         </div>
       </div>
 
 
 
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+      <div ref={ref} className="relative max-w-7xl mx-auto pb-32">
         {data.map((item, index) => (
-          <div key={index} className="flex justify-start pt-10 md:pt-40 md:gap-10">
+          <div key={index} className="flex justify-start pt-10 md:pt-20 md:gap-10">
             <div
               className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-md md:w-full">
               <div

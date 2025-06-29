@@ -4,18 +4,15 @@ export default function Component() {
   return (
     <footer className="bg-[#e8ddd4] px-8 py-12 pt-32">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col lg:flex-row justify-between items-start gap-8 pb-10">
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-8 sm:pb-10">
           {/* Left Section */}
           <div className="flex-1">
             {/* Logo */}
-            <div className="flex items-center gap-3 mb-8">
-            <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-full border-2 border-orange-400 flex items-center justify-center">
-              <div className="w-4 h-4 rounded-full bg-orange-400" />
-              </div>
-            </div>
-              <h2 className="text-4xl font-bold text-gray-800">Yoga Studio</h2>
-            </div>
+            <img
+              src="/logo.png"
+              alt="Woman meditating"
+              className="sm:h-20 sm:w-80 object-fill mb-5"
+            />
 
             {/* Contact Info */}
             <div className="space-y-2">
@@ -30,7 +27,8 @@ export default function Component() {
             {/* Location */}
             <div className="mb-6">
               <h3 className="text-gray-600 text-sm mb-2">location</h3>
-              <p className="text-gray-800 font-medium">123 Serenity Lane, City, State, ZIP</p>
+              <p className="text-gray-800 font-medium">UAE.</p>
+              <p className="text-gray-800 font-medium">DUBAI.</p>
             </div>
 
             {/* Working Hours */}
@@ -57,7 +55,7 @@ export default function Component() {
 
         {/* Bottom Section */}
         <div className="border-t border-gray-400 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-600">
-          <p>© Yoga Studio 2025</p>
+          <p>©Anju Shashani 2025</p>
           <p>Build with ❤️</p>
         </div>
       </div>

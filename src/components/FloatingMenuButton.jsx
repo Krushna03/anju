@@ -5,7 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 
 const FloatingMenuButton = () => {
   return (
-    <div className="fixed top-6 right-4 md:right-12 z-50">
+    <div className="fixed top-8 right-4 md:right-12 z-50">
       <button className="flex items-center gap-3 px-4 py-2 bg-white/60 backdrop-blur-md rounded-full shadow-lg border border-gray-300 hover:bg-white transition">
         <span className="text-sm font-semibold text-gray-800">
           <DropdownMenu>

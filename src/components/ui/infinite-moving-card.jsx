@@ -96,8 +96,8 @@ export const InfiniteMovingCards = ({
               </span>
               <div className="relative z-20 mt-4 flex flex-row items-center">
                 <span className="flex items-center gap-2">
-                  <div className="rounded-full h-8 w-8 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold">
-                    {item.name.split(' ').map(n => n[0]).join('')}
+                  <div className="rounded-full h-14 w-14 flex items-center justify-center text-white text-sm font-semibold border bg-gray-200">
+                    <img src={item.companyLogo} alt={item.companyLogo} className="p-2" />
                   </div>
                   <span className="text-sm leading-[1.6] font-medium text-gray-600 dark:text-gray-400">
                     {item.name}
