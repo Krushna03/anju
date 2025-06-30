@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 
-const useCountUp = (target, duration = 2000) => {
+// Count-up hook
+const useCountUp = (target, duration = 2000, trigger) => {
   const [count, setCount] = useState(0);
+
   useEffect(() => {
+    if (!trigger) return;
+
     let start = 0;
     const end = parseInt(target);
-    if (start === end) return;
-
     const incrementTime = Math.floor(duration / end);
+
     const timer = setInterval(() => {
       start += 1;
       setCount(start);
@@ -15,70 +20,97 @@ const useCountUp = (target, duration = 2000) => {
     }, incrementTime);
 
     return () => clearInterval(timer);
-  }, [target, duration]);
+  }, [trigger, target, duration]);
+
   return count;
 };
 
 export default function NumbersSection() {
-  const livesChanged = useCountUp(100);
-  const satisfactionRate = useCountUp(99);
-  const clientRetention = useCountUp(97);
-  const emailVolume = useCountUp(70);
+  const { ref, inView } = useInView({ triggerOnce: false });
+
+  const clientRetention = useCountUp(97, 2000, inView);
+  const emailVolume = useCountUp(70, 2000, inView);
+  const livesChanged = useCountUp(100, 2000, inView);
+  const satisfactionRate = useCountUp(99, 2000, inView);
 
   return (
-    <section className="pb-20 sm:pb-32 px-4 bg-[#f5f1eb]">
+    <section ref={ref} className="sm:pt-20 pb-20 sm:pb-32 px-4 bg-[#f5f1eb]">
       <div className="max-w-6xl mx-auto">
+
         {/* Header */}
-        <div className="text-center mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-12"
+        >
           <p className="font-medium text-gray-800 uppercase tracking-wider mb-4">TALKING ABOUT NUMBERS</p>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900">We Believe in Numbers</h2>
-        </div>
+        </motion.div>
 
         {/* Statistics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-center">
-          {/* Client Retention */}
-          <div className="text-center">
-            <div className="relative inline-block mb-10">
-              <div className="bg-orange-400 rounded-full w-32 h-32 flex items-center justify-center transform -rotate-12 shadow-lg">
-                <span className="text-white text-3xl font-bold transform rotate-12">{clientRetention}%</span>
-              </div>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Client Retention</h3>
-            <p className="text-gray-600 text-sm">Verify your business so your information is eligible maps</p>
-          </div>
 
-          {/* Email Volume */}
-          <div className="text-center">
-            <div className="relative inline-block mb-6">
-              <div className="bg-[#635657] rounded-3xl w-32 h-24 flex items-center justify-center transform rotate-6 shadow-lg">
-                <span className="text-white text-2xl font-bold transform -rotate-6">{emailVolume}+</span>
+          {/* Card Variants */}
+          {[
+            {
+              count: `${clientRetention}%`,
+              title: "Client Retention",
+              desc: "Verify your business so your information is eligible maps",
+              bg: "bg-orange-400",
+              rotate: "-rotate-12",
+              textRotate: "rotate-12",
+              size: "w-32 h-32",
+            },
+            {
+              count: `${emailVolume}+`,
+              title: "Satisfied Companies",
+              desc: "Many big companies satisfied with our Yoga sessions.",
+              bg: "bg-[#635657]",
+              rotate: "rotate-6",
+              textRotate: "-rotate-6",
+              size: "w-32 h-24 rounded-3xl",
+            },
+            {
+              count: `${livesChanged}+`,
+              title: "Live Sessions Conducted",
+              desc: "Over 100 live sessions successfully held with participants worldwide.",
+              bg: "bg-[#819867]",
+              rotate: "rotate-6",
+              textRotate: "rotate-6",
+              size: "w-32 h-32",
+            },            
+            {
+              count: `${satisfactionRate}.9%`,
+              title: "Customer Satisfaction",
+              desc: "Individuals and Groups are Satisfied When Working With us.",
+              bg: "bg-[#ff2370]",
+              rotate: "rotate-6",
+              textRotate: "-rotate-6",
+              size: "w-32 h-32",
+            },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className="text-center"
+            >
+              <div className="relative inline-block mb-6">
+                <div
+                  className={`${item.bg} ${item.size} rounded-full flex items-center justify-center transform ${item.rotate} shadow-lg`}
+                >
+                  <span className={`text-white text-2xl md:text-3xl font-bold transform ${item.textRotate}`}>
+                    {item.count}
+                  </span>
+                </div>
               </div>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Satisfied Companies</h3>
-            <p className="text-gray-600 text-sm">Many big companies satistfied with our Yoga sessions.</p>
-          </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
+              <p className="text-gray-600 text-sm">{item.desc}</p>
+            </motion.div>
+          ))}
 
-          {/* Lives Changed */}
-          <div className="text-center">
-            <div className="relative inline-block mb-6">
-              <div className="bg-[#819867] rounded-full w-32 h-32 flex items-center justify-center transform -rotate-6 shadow-lg">
-                <span className="text-white text-3xl font-bold transform rotate-6">{livesChanged}K</span>
-              </div>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">More Than 100,000 Lives</h3>
-            <p className="text-gray-600 text-sm">Have Been Changed After Practicing With us.</p>
-          </div>
-
-          {/* Satisfaction Rate */}
-          <div className="text-center">
-            <div className="relative inline-block mb-6">
-              <div className="bg-[#ff2370] rounded-full w-32 h-32 flex items-center justify-center transform rotate-6 shadow-lg">
-                <span className="text-white text-3xl font-bold transform -rotate-6">{satisfactionRate}.9%</span>
-              </div>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Customer Satisfaction</h3>
-            <p className="text-gray-600 text-sm">Individuals and Groups are Satisfied When Working With us.</p>
-          </div>
         </div>
       </div>
     </section>

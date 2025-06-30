@@ -56,19 +56,23 @@ export default function MovingSections() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: `${(sections.length + 1) * 100}vh` }}>
+    <div
+      ref={containerRef}
+      className="relative"
+      style={{ height: `${sections.length * 130}vh` }}
+    >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {sections.map((section, index) => {
           const sectionStart = index / sections.length;
           const sectionEnd = (index + 1) / sections.length;
-          const sectionProgress = (scrollProgress - sectionStart) / (sectionEnd - sectionStart);
+          const sectionProgress =
+            (scrollProgress - sectionStart) / (sectionEnd - sectionStart);
 
           let opacity = 0;
           let translateY = 50;
           let scale = 0.95;
 
           if (index === sections.length - 1) {
-            // For last section, make it fully visible and static
             if (scrollProgress >= sectionStart) {
               opacity = 1;
               translateY = 0;
